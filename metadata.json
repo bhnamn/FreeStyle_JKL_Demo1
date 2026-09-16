@@ -1,0 +1,6 @@
+{
+  "name": "FreeStyle Barbershop Jyväskylä",
+  "description": "Modern barbershop in Jyväskylä, Finland featuring precision cuts, beard grooming, real-time analytics, and bilingual support (FI/EN).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
