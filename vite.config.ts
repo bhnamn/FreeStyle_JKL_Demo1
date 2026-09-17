@@ -5,6 +5,7 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
+    base: '/FreeStyle_JKL_Demo1/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
