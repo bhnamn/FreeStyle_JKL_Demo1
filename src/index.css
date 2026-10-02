@@ -36,3 +36,23 @@
   background: #393d49;
 }
 
+/* Horizontal category scrollbar for modal button bar */
+.custom-horizontal-bar {
+  scrollbar-width: thin;
+  scrollbar-color: #2b3040 #141620;
+}
+.custom-horizontal-bar::-webkit-scrollbar {
+  height: 5px;
+}
+.custom-horizontal-bar::-webkit-scrollbar-track {
+  background: #141722;
+  border-radius: 9999px;
+}
+.custom-horizontal-bar::-webkit-scrollbar-thumb {
+  background: #2c3244;
+  border-radius: 9999px;
+}
+.custom-horizontal-bar::-webkit-scrollbar-thumb:hover {
+  background: #c89d56;
+}
+

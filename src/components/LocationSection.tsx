@@ -3,6 +3,7 @@ import { MapPin, Phone, Clock, ExternalLink, Navigation, CheckCircle, Calendar }
 import { Language } from '../types';
 import { translations } from '../data/translations';
 import { SHOP_INFO } from '../data/barberData';
+import { useMapLink } from '../utils/mapUtils';
 
 interface LocationSectionProps {
   lang: Language;
@@ -11,6 +12,7 @@ interface LocationSectionProps {
 
 export const LocationSection: React.FC<LocationSectionProps> = ({ lang, onOpenBooking }) => {
   const t = translations[lang].location;
+  const mapInfo = useMapLink();
 
   // Check if currently open according to Finland time
   const isOpenNow = useMemo(() => {
@@ -46,7 +48,7 @@ export const LocationSection: React.FC<LocationSectionProps> = ({ lang, onOpenBo
   }, []);
 
   return (
-    <section id="location-section" className="py-20 sm:py-28 bg-[#0e1015] border-b border-[#1b1e26] relative">
+    <section id="location-section" className="py-10 sm:py-14 bg-[#0e1015] border-b border-[#1b1e26] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
@@ -96,20 +98,31 @@ export const LocationSection: React.FC<LocationSectionProps> = ({ lang, onOpenBo
 
             {/* Address */}
             <div className="space-y-1.5">
-              <div className="flex items-center gap-2 text-xs font-bold text-[#c89d56] uppercase tracking-wider">
+              <h3 className="flex items-center gap-2 text-xs font-bold text-[#c89d56] uppercase tracking-wider">
                 <MapPin className="w-4 h-4 text-[#c89d56]" />
                 <span>{t.addressTitle}</span>
-              </div>
-              <p className="text-lg font-bold text-white pl-6">{t.addressVal}</p>
-              <p className="text-xs text-[#828898] pl-6">{t.parkingInfo}</p>
+              </h3>
+              <a
+                href={mapInfo.url}
+                target={mapInfo.target}
+                rel={mapInfo.rel}
+                aria-label={lang === 'fi' ? 'Avaa sijaintimme karttasovelluksessa' : 'Open our location in Maps'}
+                className="group/addr block pl-6"
+              >
+                <p className="text-lg font-bold text-white group-hover/addr:text-[#c89d56] transition-colors inline-flex items-center gap-2">
+                  <span>{t.addressVal}</span>
+                  <ExternalLink className="w-3.5 h-3.5 opacity-60 group-hover/addr:opacity-100 group-hover/addr:translate-x-0.5 transition-all text-[#c89d56]" />
+                </p>
+                <p className="text-xs text-[#828898] mt-1">{t.parkingInfo}</p>
+              </a>
             </div>
 
             {/* Phone */}
             <div className="space-y-1.5 border-t border-[#1c1f2a] pt-4">
-              <div className="flex items-center gap-2 text-xs font-bold text-[#c89d56] uppercase tracking-wider">
+              <h3 className="flex items-center gap-2 text-xs font-bold text-[#c89d56] uppercase tracking-wider">
                 <Phone className="w-4 h-4 text-[#c89d56]" />
                 <span>{t.phoneTitle}</span>
-              </div>
+              </h3>
               <div className="pl-6 flex items-center justify-between">
                 <a
                   href={`tel:${SHOP_INFO.phone.replace(/\s+/g, '')}`}
@@ -128,10 +141,10 @@ export const LocationSection: React.FC<LocationSectionProps> = ({ lang, onOpenBo
 
             {/* Hours */}
             <div className="space-y-2 border-t border-[#1c1f2a] pt-4">
-              <div className="flex items-center gap-2 text-xs font-bold text-[#c89d56] uppercase tracking-wider">
+              <h3 className="flex items-center gap-2 text-xs font-bold text-[#c89d56] uppercase tracking-wider">
                 <Clock className="w-4 h-4 text-[#c89d56]" />
                 <span>{t.hoursTitle}</span>
-              </div>
+              </h3>
               <div className="pl-6 space-y-2 text-xs sm:text-sm">
                 <div className="flex items-center justify-between text-[#d6dae5]">
                   <span>Ma – Pe (Mon – Fri)</span>
@@ -151,13 +164,18 @@ export const LocationSection: React.FC<LocationSectionProps> = ({ lang, onOpenBo
             {/* Actions Buttons */}
             <div className="grid grid-cols-2 gap-3 pt-3 border-t border-[#1c1f2a]">
               <a
-                href={SHOP_INFO.googleMapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#171a24] hover:bg-[#202432] border border-[#2b2f3d] text-white text-xs font-bold transition-all shadow-sm group"
+                href={mapInfo.url}
+                target={mapInfo.target}
+                rel={mapInfo.rel}
+                aria-label={lang === 'fi' ? 'Avaa sijaintimme karttasovelluksessa' : 'Open our location in Maps'}
+                className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#171a24] hover:bg-[#202432] border border-[#2b2f3d] text-white text-xs font-bold transition-all shadow-sm group active:scale-98"
               >
                 <Navigation className="w-3.5 h-3.5 text-[#c89d56] group-hover:rotate-12 transition-transform" />
-                <span>{t.openInMaps}</span>
+                <span>
+                  {mapInfo.provider === 'apple'
+                    ? (lang === 'fi' ? 'Avaa Apple Mapsissa' : 'Open in Apple Maps')
+                    : (lang === 'fi' ? 'Avaa Google Mapsissa' : 'Open in Google Maps')}
+                </span>
               </a>
 
               <button
@@ -201,7 +219,7 @@ export const LocationSection: React.FC<LocationSectionProps> = ({ lang, onOpenBo
                 </div>
 
                 <div className="mt-4 px-4 py-2 rounded-xl bg-[#0b0c0e]/90 border border-[#2c3140] backdrop-blur-md text-center shadow-xl">
-                  <div className="text-white font-display font-bold text-sm">FreeStyle Barbershop</div>
+                  <div className="text-white font-display font-bold text-sm">Parturi-Kampaamo FreeStyle</div>
                   <div className="text-xs text-[#c89d56] font-medium">Kauppakatu 8, 40100 Jyväskylä</div>
                   <div className="text-[10px] text-[#7d8291] mt-0.5">
                     {lang === 'fi' ? 'Torikeskuksen & Kirkkopuiston läheisyydessä' : 'Near Torikeskus & Kirkkopuisto park'}

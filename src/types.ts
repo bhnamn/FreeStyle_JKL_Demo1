@@ -2,14 +2,25 @@ export type Language = 'fi' | 'en';
 
 export interface ServiceItem {
   id: string;
-  category: 'hair' | 'beard' | 'combo' | 'special';
+  categoryId: string;
+  categoryNameFi: string;
+  categoryNameEn: string;
   nameFi: string;
   nameEn: string;
-  descFi: string;
-  descEn: string;
-  price: number;
-  durationMinutes: number;
+  fullTitleFi: string;
+  priceDisplay: string;
+  aika24Url: string;
   popular?: boolean;
+  descFi?: string;
+  descEn?: string;
+}
+
+export interface ServiceCategory {
+  id: string;
+  nameFi: string;
+  nameEn: string;
+  icon: string;
+  services: ServiceItem[];
 }
 
 export interface Barber {
@@ -28,50 +39,19 @@ export interface Barber {
   stationNumber: number;
 }
 
-export interface Booking {
+export interface CustomerReview {
   id: string;
-  serviceId: string;
-  serviceName: string;
-  barberId: string;
-  barberName: string;
-  date: string;
-  time: string;
-  customerName: string;
-  customerPhone: string;
-  customerEmail: string;
-  price: number;
-  status: 'confirmed' | 'completed' | 'in-progress';
-  createdAt: string;
+  author: string;
+  initials: string;
+  avatarBg: string;
+  rating: number;
+  dateFi: string;
+  dateEn: string;
+  commentFi: string;
+  commentEn: string;
+  serviceFi: string;
+  serviceEn: string;
+  source: string;
+  googleReviewUrl: string;
 }
 
-export interface AnalyticsSummary {
-  todayRevenue: number;
-  weeklyRevenue: number;
-  totalBookingsToday: number;
-  completedToday: number;
-  activeChairs: number;
-  totalChairs: number;
-  occupancyRate: number;
-  averageSatisfaction: number;
-  totalReviews: number;
-  hourlyTraffic: {
-    hour: string;
-    bookings: number;
-    capacity: number;
-  }[];
-  popularServices: {
-    nameFi: string;
-    nameEn: string;
-    count: number;
-    percentage: number;
-  }[];
-  recentActivity: {
-    id: string;
-    type: 'booking' | 'complete' | 'checkin';
-    customerName: string;
-    serviceName: string;
-    barberName: string;
-    timeAgo: string;
-    timestamp: number;
-  }[];
-}

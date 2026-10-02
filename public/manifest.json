@@ -1,0 +1,17 @@
+{
+  "short_name": "FreeStyle",
+  "name": "Parturi-Kampaamo FreeStyle Jyväskylä",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0b0c0e",
+  "theme_color": "#0b0c0e",
+  "display": "standalone",
+  "orientation": "portrait",
+  "description": "Parturi-Kampaamo FreeStyle Jyväskylän keskustassa (Kauppakatu 8). Miesten ja naisten hiustenleikkaukset, skin fade, parranajo ja nopea Aika24-ajanvaraus."
+}
